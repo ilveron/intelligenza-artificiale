@@ -1,0 +1,130 @@
+a | b :- c, not e.
+b | e :- g, not c.
+a | e | f.
+e | g.
+
+:- f, not b, not a.
+
+I1: {}              % interpretazione vuota
+I2: {a, e, g}
+I3: {e, a}
+I4: {b, g, f}
+I5: {e}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Per ognuna di queste interpretazioni, chiedersi: 
+
+%% se sono modelli 
+
+Modelli:        {
+    {a, e, g}   % I2
+    {e, a}      % I3
+    {b, g, f}   % I4
+    {e}         % I5
+} 
+
+Non Modelli:    {
+    {}         % I1
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% se sono modelli minimali 
+
+Modelli MINIMALI:        {
+    {b, g, f}   % I4
+    {e}         % I5
+} 
+
+Modelli NON MINIMALI: {
+    {a, e, g}   % I2
+    {e, a}      % I3
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% se sono modelli supportati
+
+a | b :- c, not d, not e.
+b | e :- g, not c.
+a | e | f.
+e | g.
+
+:- f, not b, not a.
+
+
+Modelli SUPPORTATI: {
+    {b, g, f}   % I4
+    {e}         % I5
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% se sono AS
+
+{b, g, f}   % I4    SI -> SUPPORTATO e MINIMALE 
+{e}         % I5    SI -> SUPPORTATO e MINIMALE
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% calcolare ridotto per ognuna di loro, verificando anche con questo metodo che siano AS
+
+% I1: {}
+
+Pᴵ¹: {
+    a | b :- c.
+    b | e :- g.
+    a | e | f.
+    e | g.
+
+    :- f.
+}
+
+% I2: {a, e, g}
+
+Pᴵ²: {
+    b | e :- g.
+    a | e | f.
+    e | g.
+    
+    % vincolo rimosso perchè "not a" sarebbe sempre falso
+}
+
+% I3: {e, a}
+
+Pᴵ³: {
+    b | e :- g.
+    a | e | f.
+    e | g.
+    
+    % vincolo rimosso perchè "not a" sarebbe sempre falso
+}
+
+% I4: {b, g, f}
+
+Pᴵ⁴: {
+    a | b :- c.
+    b | e :- g.
+    a | e | f.
+    e | g.
+
+    % vincolo rimosso perchè "not b" sarebbe sempre falso
+}
+
+% I5: {e}
+
+Pᴵ⁵: {
+    b | e :- g.
+    a | e | f.
+    e | g.
+
+    :- f.
+}
+
+% I1 NON è un AS per Pᴵ¹, quindi non lo è nemmeno per P
+% I2 NON è un AS per Pᴵ², quindi non lo è nemmeno per P
+% I3 NON è un AS per Pᴵ³, quindi non lo è nemmeno per P
+% I4 è un AS per Pᴵ⁴, quindi lo è anche per P
+% I5 è un AS per Pᴵ⁵, quindi lo è anche per P

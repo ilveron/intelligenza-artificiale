@@ -1,0 +1,81 @@
+% Esercizio 1
+
+a | b :- c, not d, not e.
+b | e :- g, not c.
+a | e | f.
+e | g.
+
+:- f, not b, not a.
+
+
+% Calcolare TUTTI gli Answer Set (x qll + temerari)
+AS: {
+    {e},
+    {a, b, g},
+    {b, f, g}
+}
+
+% Per i ridotti utilizzo la riduzione utilizzata dal prof. Calimeri (se un letterale positivo in un corpo non è presente nell'interpretazione, rimuovo la regola)
+Ridotto {e}: {
+    a | e | f.      % supporta 'e'
+    e | g.          % supporta 'e'
+}                   
+% {e} è un AS per questo ridotto, quindi lo è anche per il programma di partenza
+
+Ridotto {a, b, g}: {
+    b | e :- g.     % supporta 'b'
+    a | e | f.      % supporta 'a'
+    e | g.          % supporta 'g'
+}                   
+% {a, b, g} è un AS per questo ridotto, quindi lo è anche per il programma di partenza
+
+Ridotto {b, f, g}: {
+    b | e :- g.     % supporta 'b'
+    a | e | f.      % supporta 'f'
+    e | g.          % supporta 'g'
+}
+% {b, f, g} è un AS per questo ridotto, quindi lo è anche per il programma di partenza
+
+% Per ognuna di queste interpretazioni, dire se sono AS
+I1: {}              % NULLA
+I2: {a, e, g}       % Modello
+I3: {e, a}          % Modello
+I4: {b, f, g}       % Modello -> Minimale -> Supportato -> AS (perchè aciclico)
+I5: {e}             % Modello -> Minimale -> Supportato -> AS (perchè aciclico)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Esercizio 2 (non ground -> ground)
+
+p(Y,X) :- a(X,_), b(Y), not t(Y,X).
+t(X,Z) :- s(X,Z), not p(X,Z).
+
+s(1,1). s(1,2).
+b(1).
+t(3,1).
+a(2,2).
+
+% Istanziazione
+p(1,2) :- not t(1,2).
+t(1,1) :- s(1,1), not p(1,1).
+t(1,2) :- s(1,2), not p(1,2).
+
+s(1,1). s(1,2).
+b(1).
+t(3,1).
+a(2,2).
+
+% Istanziazione semplificata
+p(1,2) :- not t(1,2).
+t(1,1).
+t(1,2) :- not p(1,2).
+
+s(1,1). s(1,2).
+b(1).
+t(3,1).
+a(2,2).
+
+AS: {s(1,1), s(1,2), b(1), t(3,1), a(2,2), p(1,2), t(1,1)}, {s(1,1), s(1,2), b(1), t(3,1), a(2,2), t(1,1), t(1,2)}
+
+
+
+

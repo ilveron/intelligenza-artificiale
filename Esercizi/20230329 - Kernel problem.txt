@@ -1,0 +1,18 @@
+% Kernel problem
+
+% Given a directed graph G=<V,A> does there exists as
+% subset V' of V such that no two vertices are joined
+% by an arc in A and such that for every vertex v in 
+% V-V' there is a vertex u in V' for which an arc
+% between u and v is in A.
+
+% V {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+% V'{1, 4, 7, 9}
+
+% Guess
+inKernel(X) | outKernel(X) :- node(X).
+connected(X) :- inKernel(Y), arc(Y,X).
+
+% Check
+:- inKernel(X), inKernel(Y), arc(Y,X).
+:- outKernel(X), not connected(X).

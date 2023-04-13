@@ -1,0 +1,5 @@
+DLV 2.1.1
+
+{presentazione(1,caterina,pastello), presentazione(2,federico,evidenziatore), presentazione(3,cristina,pennello), presentazione(4,marcello,matita)}
+
+./dlv2 20230404-pastelli.dlv -n 0 --filter=presentazione/3

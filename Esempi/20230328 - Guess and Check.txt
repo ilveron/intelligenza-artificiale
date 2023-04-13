@@ -1,0 +1,29 @@
+emp(I,S).           % id - sesso
+
+% Si vogliono creare due gruppi di impiegati
+emp(1,f).
+emp(2,m).
+
+in(I) | out(I) :- emp(I,S).
+
+almeno1 :- in(X).
+
+:- not almeno1.             % Non è possibile che ci sia un sottoinsieme vuoto
+
+% Istanziazione
+in(1) | out(1).
+in(2) | out(2).
+
+AS prima di almeno1: {in(1), out(2)}, {out(1), out(2)}, {in(1), in(2)}, {in(2), out(1)}
+%                          {1}               { }             {1,2}            {2}            TUTTI i possibili sottoinsiemi
+
+AS dopo almeno1: {in(1), out(2), almeno1}, {out(1), out(2)}, {in(1), in(2), almeno1}, {in(2), out(1), almeno1}
+
+
+% Almeno una donna
+almeno1Donna: in(X), emp(X,f).                       
+
+% Al massimo una donna
+:- in(X), in(Y), emp(X,f), emp(Y,f), X!=Y.  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -1,0 +1,33 @@
+t(Z) | p(Y) :- r(Z,Y).
+
+:- t(Z), Z <= 2.
+
+r(1,2). r(3,1). r(3,4). 
+r(5,6). r(4,1).
+
+
+% Istanziazione
+t(1) | p(2).        % Omettiamo r(1,2) perchè sappiamo sicuramente essere vero (dai fatti)
+t(3) | p(1).
+t(3) | p(4).
+t(5) | p(6).
+t(4) | p(1).
+:- t(1).
+
+% quindi possiamo proprio rimuovere t(1) e il vincolo
+
+p(2).               % non possiamo dire che è un fatto ma sappiamo che è sempre vero  
+t(3) | p(1).
+t(3) | p(4).
+t(5) | p(6).
+t(4) | p(1).
+
+% PER CASA: calcolare AS (sono 6)
+AS: {
+    {p(2), p(1)}
+    {p(2), t(3)}
+    {p(2), p(4)}
+    {p(2), t(5)}
+    {p(2), p(6)}
+    {p(2), t(4)}
+}

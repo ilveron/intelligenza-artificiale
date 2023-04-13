@@ -1,0 +1,6 @@
+DLV 2.1.1
+
+{inClique(2), inClique(3), inClique(5), inClique(1)}
+{inClique(3), inClique(4)}
+
+./dlv2 20230330-cricche.dlv -n 0 --filter=inClique/1

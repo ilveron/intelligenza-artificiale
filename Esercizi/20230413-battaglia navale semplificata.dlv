@@ -1,0 +1,23 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Battaglia navale - semplificato %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Abbiamo cinque navi, ciascuna identificata con un numero.
+ship(1). ship(2). ship(3). ship(4). ship(5).
+
+% Queste navi sono su un campo di battaglia che puo' essere visto 
+% come una matrice con righe e colonne. Ciascuna nave e' "composta" da
+% tre "pezzi", e pertanto occupa 3 posizioni sul campo di battaglia; si 
+% sa che sono navi "lunghe", quindi non possono essere ad "L", ma solo
+% in orrizzontale o in verticale. Si devono individuare le posizioni 
+% di tutte le navi, sapendo che in input si hanno fatti del tipo
+% 
+%   rowsum(R,Su)
+% 
+% e
+% 
+%   colsum(R,Su)
+% 
+% che indicano quante celle occupate ci sono sul campo di battaglia per 
+% ciascuna riga e colonna, rispettivamente (una sorta di tomografia
+% bidimensionale). 

@@ -1,0 +1,21 @@
+% Sia dato un grafo orientato G=<V,E> tale che gli archi in E siano pesati (pesi solo positivi), 
+% e che l’insieme dei nodi V sia tri-partito in tre sottoinsiemi A, B e C; i sottoinsiemi sono 
+% tali che tutti gli archi uscenti dai nodi in A incidono solo su nodi in B, e tutti gli 
+% archi uscenti dai nodi in B incidono solo su nodi in C. Il grafo è tale che da ogni nodo in A 
+% si può raggiungere qualunque nodo in C. Rimuovendo una parte dei nodi in B (e quindi anche 
+% gli archi entranti/uscenti corrispondenti), si intende trovare un sotto-grafo di G che abbia 
+% le seguenti caratteristiche: 
+%
+% •	(condizione necessaria): la completa raggiungibilità da A a C è mantenuta;
+% •	(cosa più importante): la cardinalità di B è minima;
+% •	(cosa meno importante): massimizzare il peso degli archi che da B vanno in C.
+%
+% Modello dei dati in INPUT:
+% •	node(X,I)    		 i nodi in V del grafo in input, dove I indica il gruppo (a,b o c)
+% •	arc(X,Y,W)    	 gli archi in E del grafo in input, dove W indica il peso
+%
+% Modello dei dati in OUTPUT:
+% •	keepNode(X,I)	 i nodi da tenere
+% •	keepArc(X,Y,W)	 gli archi da tenere
+% •	cardinalityOfB(X)	 il numero di nodi in B nel grafo ottenuto
+% •	totalGainBtoC(X)	 la somma totale dei pesi degli archi da B in C.

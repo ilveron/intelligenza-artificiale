@@ -1,0 +1,13 @@
+-n <numero>         		% Mostra <numero> Answer Set (con 0 li mostra tutti)
+
+--mode=idlv         		% Utilizza idlv (da usare insieme a --t)        
+--t                 		% Mostra istanziazione
+--no-facts          		% NON stampa i fatti.
+
+--print-rewriting   		% Mostra com'è valutato il programma
+
+--no-projection=0   		% Mostra l'istanziazione per come la scriviamo noi
+
+--filter=<predicato>/<arità>	% Mostra solo il dato predicato con la data arità
+
+% DLV2 in genere comunque prende TUTTE le opzioni di IDLV e tutte quelle di WASP

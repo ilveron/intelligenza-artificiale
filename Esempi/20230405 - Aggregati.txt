@@ -1,0 +1,30 @@
+p(1,2).
+p(2,3).
+p(3,1).
+p(3,3).
+r(2).
+r(3).
+s(2,3).
+s(5,6).
+
+q1(X) :- #count{Y:p(Z,Y)}=X.
+q2(X) :- #count{Y:p(Z,Y)}=X, r(Z).
+
+q3(X) :- #count{Y:p(Z,Y), r(Z)}=X.
+q4(X) :- #count{Y:p(Z,Y)}=X, r(Z), s(Z,T).
+
+q5(X) :- #count{Y,Z:p(Z,Y),r(Z)}=X.
+
+
+% Calcolare cosa deriva
+
+%% q1(3).       
+
+%% q2(1).       count -> {3}        Per r(2)
+%% q2(2).       count -> {1,3}      Per r(3)
+
+%% q3(2).       count -> {1,3}
+
+%% q4(1).       count -> {3}
+
+%% q5(3).       count -> {{3,2}, {3,1}, {2,3}}

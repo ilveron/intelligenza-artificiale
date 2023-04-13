@@ -1,0 +1,24 @@
+% Il supporto è una condizione NECESSARIA affinchè una data intepretazione sia un AS
+
+a | b :- not c.
+c :- a.
+
+I: {a,c}
+
+% c -> supportato dalla regola "c :- a"
+% a -> NON supportato perchè l'unica regola che potrebbe supportarlo ha corpo falso.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Non tutti i modelli supportati sono AS
+
+a :- c.
+c :- a.
+
+I: {a,c} 
+
+% I è supportato ma non è minimale, (lo è {}), per questo I non è un AS
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Se il programma è aciclico questa, invece, è una condizione NECESSARIA e SUFFICIENTE.

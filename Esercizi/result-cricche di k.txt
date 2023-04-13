@@ -1,0 +1,10 @@
+DLV 2.1.1
+
+{inClique(2), inClique(5), clique(2)}
+{inClique(1), inClique(2), clique(2)}
+{inClique(3), inClique(4), clique(2)}
+{inClique(2), inClique(3), clique(2)}
+{inClique(1), inClique(5), clique(2)}
+{inClique(1), inClique(3), clique(2)}
+{inClique(3), inClique(5), clique(2)}
+./dlv2 20230405-cricche\ di\ k.dlv -n 0 --filter=inClique/1,clique/1

@@ -1,0 +1,53 @@
+a :- not b.
+b :- not a.
+
+I: {a}
+
+
+% Programma ridotto - rimuoviamo tutte le regole che hanno corpo falso
+% es. 'a' per I è vero, quindi 'not a' è falso, quindi quella regola si rimuove
+% si rimuovono i literals negativi dal resto delle regole, quindi rimane:
+
+Pᴵ: {
+    a.
+}
+
+I: {a,b}
+
+% Per questa interpretazione non rimane nulla perchè si rimuovono entrambe le regole
+Pᴵ: { }
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+a :- d, not b.
+b :- not d.
+d.
+
+I: {a,d}                   
+
+Pᴵ: {
+    a :- d.
+    d.
+}
+
+% Si può dire che I sia un AS per P
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Non tutti i modelli minimali sono AS 
+
+a :- not b
+
+Modelli minimali: {
+    I1: {a}
+    I2: {b}
+}
+
+Pᴵ¹: {
+    a.
+}
+
+Pᴵ²: { }
+
+% Quindi I2 NON è un AS
