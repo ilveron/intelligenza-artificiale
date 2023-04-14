@@ -34,73 +34,31 @@
 % |* |  |  |  ||  |  |  | *|
 % -------------------------
 
-row(1..4).
-col(1..4).
+row(1..8).
+col(1..8).
 lot(R,C) :- row(R), col(C).
 oak(1,1).
-oak(4,4).
-oak(4,1).
-oak(2,2).
+oak(1,8).
+oak(8,1).
+oak(8,8).
 
-nSec(1..4).
-
-section(S,R,C) | out(S,R,C) :- nSec(S), lot(R,C).
-:- section(S1,R,C), section(S2,R,C), S1!=S2.
+section(1,R,C) | section(2,R,C) | section(3,R,C) | section(4,R,C) :- lot(R,C).
 
 %% Non è possibile che ci siano due querce nella stessa sezione
 :- oak(R1,C1), oak(R2,C2), section(S,R1,C1), section(S,R2,C2), R1<>R2.
 :- oak(R1,C1), oak(R2,C2), section(S,R1,C1), section(S,R2,C2), C1<>C2.
 
-%% Non è possibile che, preso un lotto, non ne esista almeno un altro nella stessa sezione su/giù e sinistra/destra
-%:- section(S,R1,C1), not section(S,R2,C2), not section(S,R3,C3), R2=R1, R3=R1, C2=C1-1, C3=C1+1. 
-%:- section(S,R1,C1), not section(S,R2,C2), not section(S,R3,C3), C2=C1, C3=C1, R2=R1-1, R3=R1+1. 
-%:- section(S,R1,C1), not section(S,R2,C2), not section(S,R3,C3), not section(S,R4,C4), not section(S,R5,C5), R2=R1-1, C2=C1, R3=R1+1, C3=C1, R4=R1, C4=C1-1, R5=R1, C5=C1+1.
-
 %% Non è possibile che le sezioni abbiano un numero di lotti differente
-sectionDim(S,D):- section(S,_,_), #count{S,R,C : section(S,R,C)}=D.
-%:- #count{D : sectionDim(_,D)}<>1.                                  % Se, tra le dim, ci fossero dim diverse, uscirebbe un numero maggiore di 1
-%%% Oppure (più semplice)
-:- sectionDim(S1,D1), sectionDim(S2,D2), S1<>S2, D1<>D2.
+lotsPerSection(L) :- L=8*8/4.
+:- lotsPerSection(L), #count{X,Y : sezione(S,X,Y)}=K, sezione(S,_,_), K<>L.
 
-%% Non è possibile che ci sia una sezione mancante (devono essere 4)
-generatedSect(S) :- sectionDim(S,_).
-:- nSec(S), not generatedSect(S).
+%% Contiguità
+adjacent(R1,C1,R2,C2) :- lot(R1,C1), lot(R2,C2), R1=R2, C2=C1+1.
+adjacent(R1,C1,R2,C2) :- lot(R1,C1), lot(R2,C2), R2=R1+1, C1=C2.
+adjacent(R1,C1,R2,C2) :- adjacent(R2,C2,R1,C1).
 
-%% Non è possibile che la somma delle dimensioni delle sezioni, sia diversa dal numero di lotti
-%% (Quindi non è possibile che ci siano lotti NON assegnati a sezioni) 
-:- N=#count{R,C : lot(R,C)}, DimSum=#sum{D,S : sectionDim(S,D)}, N<>DimSum.
+reaches(R1,C1,R2,C2,S) :- section(S,R1,C1), section(S,R2,C2), adjacent(R1,C1,R2,C2).
+reaches(R1,C1,R3,C3,S) :- reaches(R1,C1,R2,C2,S), adjacent(R2,C2,R3,C3), section(S,R3,C3).
 
-nLots(X) :- #count{R,C : lot(R,C)}=X.
-
-hasContiguous(S,R1,C1) :- section(S,R1,C1), section(S,R2,C2), C2=C1+1, R2=R1.
-hasContiguous(S,R1,C1) :- section(S,R1,C1), section(S,R2,C2), R2=R1+1, C2=C1.
-hasContiguous(S,R2,C2) :- hasContiguous(S,R1,C1), section(S,R2,C2), C2=C1+1, R2=R1.
-hasContiguous(S,R2,C2) :- hasContiguous(S,R1,C1), section(S,R2,C2), R2=R1+1, C2=C1.
-
-
-nLastOfChain(X) :- #count{R,C : hasContiguous(_,R,C)}=X.
-
-:- nLastOfChain(X), not nLots(X).
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% LA SOLUZIONE DI SOTTO FUNZIONA, MA SOLO CON MATRICI CHE HANNO %
-%    NUM. RIGHE E NUM. COLONNE PARI, QUINDI SENZA LOTTI VUOTI   %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-
-
-%section(1,R,C) | section(2,R,C) | section(3,R,C) | section(4,R,C) :- lot(R,C).
-
-%% Non è possibile che ci siano due querce nella stessa sezione
-%:- oak(R1,C1), oak(R2,C2), section(S,R1,C1), section(S,R2,C2), R1<>R2.
-%:- oak(R1,C1), oak(R2,C2), section(S,R1,C1), section(S,R2,C2), C1<>C2.
-
-%% Non è possibile che, preso un lotto, non ne esista almeno un altro nella stessa sezione su/giù e sinistra/destra
-%:- section(S,R1,C1), not section(S,R2,C2), not section(S,R3,C3), R2=R1, R3=R1, C2=C1-1, C3=C1+1. 
-%:- section(S,R1,C1), not section(S,R2,C2), not section(S,R3,C3), C2=C1, C3=C1, R2=R1-1, R3=R1+1. 
-
-%% Non è possibile che le sezioni abbiano un numero di lotti differente
-%sectionDim(S,D):- section(S,_,_), #count{S,R,C : section(S,R,C)}=D.
-%%:- #count{D : sectionDim(_,D)}<>1.                                  % Se, tra le dim, ci fossero dim diverse, uscirebbe un numero maggiore di 1
-%%% Oppure (più semplice)
-%:- sectionDim(S1,D1), sectionDim(S2,D2), S1<>S2, D1<>D2.
+:- section(S,R1,C1), section(S,R2,C2), not reaches(R1,C1,R2,C2,S), R1<>R2.
+:- section(S,R1,C1), section(S,R2,C2), not reaches(R1,C1,R2,C2,S), C1<>C2.

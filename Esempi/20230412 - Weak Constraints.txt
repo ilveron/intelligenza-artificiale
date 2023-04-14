@@ -1,0 +1,12 @@
+a(1,2).
+a(1,3).
+a(3,4).
+a(4,5).
+
+%% Non vorrei che...
+%%%% [<peso>@<priorità>,<discriminante>]
+:~ a(X,2). [1@1,X]                  % Paga 1 per ogni istanza di a(X,Y) con Y=2 e X diversa da ogni altra X delle istanze di a(X,Y)
+
+
+
+

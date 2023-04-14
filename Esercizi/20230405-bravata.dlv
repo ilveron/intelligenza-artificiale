@@ -63,7 +63,6 @@ accusato(O,P,G,C,R) :- ordine(P,O), grado(P,G), condanna(P,C), reggimento(P,R).
 :- reggimento(P1,secondo), condanna(P2,cucina), condanna(P3,multa), ordine(P1,O1), ordine(P2,O2), ordine(P3,O3), O1>=O2, O1>O3. 
 :- reggimento(P1,secondo), condanna(P2,cucina), condanna(P3,multa), ordine(P1,O1), ordine(P2,O2), ordine(P3,O3), O1>=O3, O1>O2. 
 
-% O2<O1<O3 || O3<O1<O2
 
 % 5.	Daniele sedeva accanto a colui che è stato condannato a 500 giri del cortile e a colui che è stato
 %     riassegnato al primo reggimento.

@@ -29,14 +29,14 @@ matrix(3,3,1).
 row(R) :- matrix(R,_,_).
 
 %% Conto gli zeri per ogni riga
-zerosInRow(Z,R) :- Z=#count{X,C : matrix(R,C,X), X=0}, row(R).
+zerosInRow(Z,R) :- Z=#count{C : matrix(R,C,X), X=0}, row(R).
 
 %% Prendo la riga con il maggior numero di zeri
 rowMostZeros(R) :- Z=#max{X : zerosInRow(X,_)}, zerosInRow(Z,R).
 
 
 % Il numero di celle che contengono 1
-numOfCellsWithOne(N) :- N=#count{R,C,X : matrix(R,C,X), X=1}.
+numOfCellsWithOne(N) :- N=#count{R,C : matrix(R,C,1)}.
 
 
 % La somma degli elementi di ogni colonna
@@ -56,4 +56,4 @@ minColumnSum(C) :- M=#min{S : columnSum(_,S)}, columnSum(C,M).
 minVal(V) :- V=#min{X : matrix(_,_,X)}.
 
 %% Conto quante celle contengono il valore appena ricavato
-cellWithMinVal(N) :- N=#count{V,R,C : matrix(R,C,V), minVal(V)}.
+cellWithMinVal(N) :- N=#count{R,C : matrix(R,C,V)}, minVal(V).

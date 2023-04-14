@@ -1,0 +1,11 @@
+% Guess
+assaggia(X) | nonAssaggia(X) :- articolo(X,_,_).
+
+% Non è possibile fare più di 7 assaggi
+:- #count{X : assaggia(X)}>7.
+
+% Massimizzare lo scrocco
+:~ nonAssaggia(N), articolo(N,_,V), [V@1,N]
+
+% Non è possibile assaggiare più bibite che cibi
+:- #count{C : articolo(C,cibo,_), assaggia(C)}=X, #count{B : articolo(B,bibita,_), assaggia(B)}=Y, Y>X.
