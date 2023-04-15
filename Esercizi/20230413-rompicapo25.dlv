@@ -5,7 +5,7 @@
 % •	Sono dati degli indizi: due per ciascuna riga, due per ciascuna colonna, due per ciascuna delle due diagonali della matrice; ciascun indizio indica 2 dei 5 numeri presenti nella riga (o colonna, o diagonale, rispettivamente), senza però specificarne la posizione.
 % ESEMPIO: Si riporta di seguito una matrice su cui sono riportati gli indizi, in grassetto, ai bordi della matrice: due per ogni riga (in basso ed in alto, rispettivamente), due per ogni colonna (in basso ed in alto, rispettivamente), due per ciascuna delle diagonali (agli angoli); una possibile soluzione riempie le celle dello schema.
 %
-%       20	23	25	14	6	5	  10					
+% 20	23	25	14	6	5	  10					
 %     -----------------------------------
 % 22 |	22	21	19	15	16	| 15
 % 18 |	23	20	14	18	17	| 17
@@ -13,4 +13,78 @@
 % 11 |	11	25	8	4	2	| 8
 % 7  |	10	9	7	6	5	| 9
 % 	-----------------------------------
-%    16	10	21	19	4	2	  13
+% 16	10	21	19	4	2	  13
+
+row(1..5).
+col(1..5).
+cell(R,C) :- row(R), col(C).
+num(1..25).
+
+% rowhint(R,N) -> Riga, Numero.
+rowhint(1,22).
+rowhint(1,15).
+rowhint(2,18).
+rowhint(2,17).
+rowhint(3,12).
+rowhint(3,3).
+rowhint(4,11).
+rowhint(4,8).
+rowhint(5,7).
+rowhint(5,9).
+
+% colhint(C,N) -> Colonna, Numero.
+colhint(1,23).
+colhint(1,10).
+colhint(2,25).
+colhint(2,21).
+colhint(3,14).
+colhint(3,19).
+colhint(4,6).
+colhint(4,4).
+colhint(5,5).
+colhint(5,2).
+
+% diaghint(maj,N) || diaghint(min,N) -> Indizio per diagonale maggiore (maj), o minore(min)
+diaghint(maj,20).
+diaghint(maj,13).
+diaghint(min,10).
+diaghint(min,16).
+
+% Guess
+contains(R,C,N) | notContains(R,C,N) :- cell(R,C), num(N).
+
+% Check
+%% Non è possibile che una stessa cella contenga due numeri diversi
+:- contains(R,C,N1), contains(R,C,N2), N1<>N2.
+
+%% Non è possibile che in due celle diverse ci sia lo stesso numero
+:- contains(R1,C,N), contains(R2,C,N), R1<>R2.
+:- contains(R,C1,N), contains(R,C2,N), C1<>C2.
+
+%% Non è possibile che ci sia un numero che non è presente in nessuna cella
+placedNum(N) :- contains(_,_,N).
+:- num(N), not placedNum(N).
+
+%% Non è possibile che gli indizi non siano rispettati (rowhint/colhint/diaghint)
+rowNum(R,N) :- contains(R,_,N), row(R).
+colNum(C,N) :- contains(_,C,N), col(C).
+:- rowhint(R,N), not rowNum(R,N).
+:- colhint(C,N), not colNum(C,N).
+diagNum(maj,N) :- contains(R,C,N), R=C.
+diagNum(min,N) :- contains(R,C,N), R+C-1=5.
+:- diaghint(D,N), not diagNum(D,N).
+
+%% Preso il valore da una cella, nel vicinato (di Moore) deve essere presente il suo successore
+%%% Costruisco il vicinato
+neighbor(R1,C1,R2,C2) :- cell(R1,C1), cell(R2,C2), R2=R1-1, C1=C2.          % N
+neighbor(R1,C1,R2,C2) :- cell(R1,C1), cell(R2,C2), R2=R1-1, C2=C1+1.        % NE
+neighbor(R1,C1,R2,C2) :- cell(R1,C1), cell(R2,C2), R2=R1, C2=C1+1.          % E
+neighbor(R1,C1,R2,C2) :- cell(R1,C1), cell(R2,C2), R2=R1+1, C2=C1+1.        % SE
+neighbor(R1,C1,R2,C2) :- cell(R1,C1), cell(R2,C2), R2=R1+1, C2=C1.          % S
+neighbor(R1,C1,R2,C2) :- cell(R1,C1), cell(R2,C2), R2=R1+1, C2=C1-1.        % SW
+neighbor(R1,C1,R2,C2) :- cell(R1,C1), cell(R2,C2), R2=R1, C2=C1-1.          % W
+neighbor(R1,C1,R2,C2) :- cell(R1,C1), cell(R2,C2), R2=R1-1, C2=C1-1.        % NW
+%%% Mi segno tutti i numeri vicini ad una cella
+neighborNum(R1,C1,V) :- neighbor(R1,C1,R2,C2), contains(R2,C2,V).
+%%% Non è possibile che data una cella contenente il valore N1 (che non sia 25), non abbia il suo successore vicino
+:- contains(R,C,N1), not neighborNum(R,C,N2), N2=N1+1, N1<>25.
