@@ -90,8 +90,8 @@ talentoPresente(T) :- concorrente(_,_,T,_,_).
 :~ concorrente(N1,_,_,R,_), concorrente(N2,_,_,R,_), N1<>N2. [1@420, N1,N2]
 
 %% Voglio minimizzare il numero di nonMiPiace
-:~ concorrente(N,_,_,_,_), nonMiPiace(N,R). [1@69, N,R]
+:~ concorrente(N,_,_,_,_), not miPiace(N,R), regione(R). [1@69, N,R]
 
 %% Voglio minimizzare il numero di chissenefrega (meno importante)
-:~ concorrente(N,_,_,_,_), chissenefrega(N,R). [1@1, N,R]
+:~ concorrente(N,_,_,_,_), chissenefrega(N,R), regione(R). [1@1, N,R]
 % Minimizzando il numero di nonMiPiace e chissenefrega, dovremmo così massimizzare il numero di miPiace
