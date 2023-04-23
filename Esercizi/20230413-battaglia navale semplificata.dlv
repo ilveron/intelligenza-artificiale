@@ -47,7 +47,7 @@ contains(R,C,0) | contains(R,C,1) | contains(R,C,2) | contains(R,C,3) | contains
 :- #count{R,C : contains(R,C,S)}<>3, ship(S).
 
 %% Non è possibile che i pezzi della nave non siano contigui
-%%% Controllo il vicinato di Von Neumann
+%%% Controllo il vicinato di Von Neumann (Funziona solo perchè le navi sono da 3, da 4 in su sarebbe necessaria la raggiungibilità)
 :- contains(R1,C1,S), not contains(R2,C2,S), not contains(R3,C3,S), not contains(R4,C4,S), not contains(R5,C5,S), R2=R1-1, C2=C1, R3=R1+1, C3=C1, R4=R1, C4=C1-1, R5=R1, C5=C1+1.
 
 

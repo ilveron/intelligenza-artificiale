@@ -1,0 +1,13 @@
+DLV 2.1.1
+
+{attrazioneSerata(musicaSacra,1), attrazioneSerata(alberoCuccagna,1), attrazioneSerata(concerto3,1), attrazioneSerata(processione,2), attrazioneSerata(veglia,2), attrazioneSerata(riffa,2), attrazioneSerata(concerto2,2), attrazioneSerata(cabaret1,2), attrazioneSerata(spiritual,3), attrazioneSerata(corsaCavalli,3), attrazioneSerata(concerto1,3)}
+COST 4@2 4@1
+{attrazioneSerata(veglia,1), attrazioneSerata(riffa,1), attrazioneSerata(bingo,1), attrazioneSerata(concerto1,1), attrazioneSerata(processione,2), attrazioneSerata(corsaCavalli,2), attrazioneSerata(cabaret1,2), attrazioneSerata(musicaSacra,3), attrazioneSerata(spiritual,3), attrazioneSerata(alberoCuccagna,3), attrazioneSerata(concerto2,3)}
+{attrazioneSerata(veglia,1), attrazioneSerata(riffa,1), attrazioneSerata(bingo,1), attrazioneSerata(concerto1,1), attrazioneSerata(processione,2), attrazioneSerata(corsaCavalli,2), attrazioneSerata(concerto2,2), attrazioneSerata(spiritual,3), attrazioneSerata(alberoCuccagna,3), attrazioneSerata(cabaret1,3)}
+{attrazioneSerata(veglia,1), attrazioneSerata(riffa,1), attrazioneSerata(bingo,1), attrazioneSerata(concerto1,1), attrazioneSerata(musicaSacra,2), attrazioneSerata(corsaCavalli,2), attrazioneSerata(concerto2,2), attrazioneSerata(spiritual,3), attrazioneSerata(alberoCuccagna,3), attrazioneSerata(cabaret1,3)}
+{attrazioneSerata(veglia,1), attrazioneSerata(riffa,1), attrazioneSerata(bingo,1), attrazioneSerata(concerto1,1), attrazioneSerata(musicaSacra,2), attrazioneSerata(corsaCavalli,2), attrazioneSerata(concerto2,2), attrazioneSerata(processione,3), attrazioneSerata(spiritual,3), attrazioneSerata(alberoCuccagna,3), attrazioneSerata(cabaret1,3)}
+{attrazioneSerata(veglia,1), attrazioneSerata(riffa,1), attrazioneSerata(bingo,1), attrazioneSerata(cabaret1,1), attrazioneSerata(musicaSacra,2), attrazioneSerata(corsaCavalli,2), attrazioneSerata(concerto2,2), attrazioneSerata(processione,3), attrazioneSerata(spiritual,3), attrazioneSerata(alberoCuccagna,3), attrazioneSerata(concerto1,3)}
+{attrazioneSerata(veglia,1), attrazioneSerata(riffa,1), attrazioneSerata(bingo,1), attrazioneSerata(cabaret1,1), attrazioneSerata(musicaSacra,2), attrazioneSerata(corsaCavalli,2), attrazioneSerata(concerto2,2), attrazioneSerata(spiritual,3), attrazioneSerata(alberoCuccagna,3), attrazioneSerata(concerto1,3)}
+
+% Output limited to 10 rows
+./dlv2 20230420-elezioni.dlv -n 0 --filter=attrazioneSerata/2 | head -n 10
