@@ -45,14 +45,13 @@ diagSum(15).
 % Guess
 in(R,C,V) | out(R,C,V) :- cell(R,C), val(V). 
 
-
 % Check 
 %% Non è possibile che nella stessa cella ci siano 2 valori
 :- in(R,C,V1), in(R,C,V2), V1<>V2.
 
 %% Non è possibile che ci siano celle senza valore
 filledCell(R,C) :- in(R,C,_).
-:- out(R,C,_), not filledCell(R,C).
+:- cell(R,C), not filledCell(R,C).
 
 %% Non è possibile che nella stessa riga ci sia due volte lo stesso valore
 :- in(R,C1,V), in(R,C2,V), C1<>C2.
@@ -74,10 +73,10 @@ rowVal(R,V) :- in(R,_,V).
 :- not rowVal(1,5).
 
 %% Non è possibile che la terza riga non abbia valori disposti in modo crescente
-:- in(3,C1,V1), in(3,C2,V2), C1<C2, V1>=V2. 
+:- in(3,C1,V1), in(3,C2,V2), C1<C2, V1>V2. 
 
 %% Non è possibile che la terza colonna non abbia valori disposti in modo crescente
-:- in(R1,3,V1), in(R2,3,V2), R1<R2, V1>=V2. 
+:- in(R1,3,V1), in(R2,3,V2), R1<R2, V1>V2. 
 
 %% Non è possibile che il 3 non compaia esattamente una volta in tutta la griglia
 :- #count{R,C : in(R,C,3)}<>1.

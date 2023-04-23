@@ -9,5 +9,5 @@ COST 4@2 4@1
 {attrazioneSerata(veglia,1), attrazioneSerata(riffa,1), attrazioneSerata(bingo,1), attrazioneSerata(cabaret1,1), attrazioneSerata(musicaSacra,2), attrazioneSerata(corsaCavalli,2), attrazioneSerata(concerto2,2), attrazioneSerata(processione,3), attrazioneSerata(spiritual,3), attrazioneSerata(alberoCuccagna,3), attrazioneSerata(concerto1,3)}
 {attrazioneSerata(veglia,1), attrazioneSerata(riffa,1), attrazioneSerata(bingo,1), attrazioneSerata(cabaret1,1), attrazioneSerata(musicaSacra,2), attrazioneSerata(corsaCavalli,2), attrazioneSerata(concerto2,2), attrazioneSerata(spiritual,3), attrazioneSerata(alberoCuccagna,3), attrazioneSerata(concerto1,3)}
 
-% Output limited to 10 rows
-./dlv2 20230420-elezioni.dlv -n 0 --filter=attrazioneSerata/2 | head -n 10
+% Output limited to 7 AS
+./dlv2 20230420-elezioni.dlv -n 7 --filter=attrazioneSerata/2
