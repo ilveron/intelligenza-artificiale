@@ -1,0 +1,22 @@
+p([1,2,3]).
+
+% &head restituisce il primo elemento di una lista, in questo caso 1
+h(X) :- p(L), &head(L;X).
+
+% &tail restituisce la lista senza il primo elemento, in questo caso [2,3]
+t(X) :- p(L), &tail(L;X).
+
+% &last restituisce l'ultimo elemento di una lista, in questo caso 3
+l(X) :- p(L), &last(L;X).
+
+% &length restituisce la lunghezza di una lista, in questo caso 3
+len(X) :- p(L), &length(L;X).
+
+% &flatten restituisce una lista "piatta", in questo caso [1,2,3]
+f(X) :- p(L), &flatten(L;X).
+
+% &member restituisce true se un elemento è presente in una lista, in questo caso true
+oneIsMember :- p(L), &member(1,L;).
+
+% &delete restituisce una lista senza un elemento, in questo caso [2,3] (in caso di duplicati elimina tutte le occorrenze)
+d(X) :- p(L), &delete(1,L;X).

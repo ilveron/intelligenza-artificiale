@@ -1,0 +1,9 @@
+simplePath([X|[Y]]) :- edge(X,Y).
+simplePath([X|[Y|W]]) :- edge(X,Y), simplePath([Y|W]), not &member (X,[Y|W];).
+
+edge(1,2).
+edge(1,3).
+edge(2,3).
+edge(3,4).
+
+% Alla fine avremo un predicato simplePath, che contiene una lista per ogni cammino per ogni nodo
