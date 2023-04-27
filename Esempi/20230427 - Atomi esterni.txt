@@ -1,0 +1,3 @@
+% Come avviare programma DLV con atomo esterno
+
+./dlv2 <nome_file_asp> <nome_file_python>

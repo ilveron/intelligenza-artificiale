@@ -1,0 +1,26 @@
+p(Y,X) :- q(f(X), Y).
+q(f(X), Y) :- p(Y,X).
+r(f(X)) :- p(f(X), Y), r(X).
+
+q(f(1), 1). p(f(1), 1). r(1).
+
+% Questo programma è finito, con AS finito, perchè nella terza regola la ricorsione è bloccata da p(f(X),Y)
+
+AS: {
+    p(1,1), p(f(1), 1), q(f(1), 1), q(f(1), f(1)), r(1), r(f(1))
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+q(f(1), 1). p(f(1), 1). r(1).
+
+p(Y,X) :- q(X,Y).
+q(f(X), X) :- r(X).
+r(f(X)) :- p(X, f(Y)), r(X).
+
+% Questo programma è infinito 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Anche questa è una funzione
+p(X+Y) :- q(X), q(Y).
