@@ -1,0 +1,5 @@
+DLV 2.1.1
+
+{biggestList([1,2,3,4]), biggestLegalList([1,2]), biggestLegalList([1,3]), biggestLegalList([1,4]), biggestLegalList([2,3]), biggestLegalList([2,4]), biggestLegalList([3,4])}
+
+./dlv2 20230427-esercizio\ liste.asp --filter=biggestList/1,biggestLegalList/1
