@@ -1,0 +1,20 @@
+row(1..8).
+col(1..8).
+cell(R,C) :- row(R), col(C).
+
+% Guess
+queen(R,1) | queen(R,2) | queen(R,3) | queen(R,4) | queen(R,5) | queen(R,6) | queen(R,7) | queen(R,8)  :- row(R).
+
+% Check
+%% Non è possibile che ci siano più di 8 regine
+:- #count{R,C : queen(R,C)}<>8.
+
+%% Non è possibile che ci siano due regine sulla stessa riga
+:- queen(R,C1), queen(R,C2), C1<>C2.
+
+%% Non è possibile che ci siano due regine sulla stessa riga
+:- queen(R1,C), queen(R2,C), R1<>R2.
+
+%% Non è possibile che, data una regina, ce ne sia un'altra sulle sue diagonali
+:- queen(R1,C1), queen(R2,C2), R1-C1=R2-C2, R1!=R2, C1!=C2.
+:- queen(R1,C1), queen(R2,C2), R1+C1=R2+C2, R1!=R2, C1!=C2.
