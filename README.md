@@ -22,4 +22,4 @@ Trovate, inoltre, anche i risultati dell’esecuzione di quasi tutti i programmi
 
 ### [Tracce](https://github.com/ilveron/intelligenza-artificiale/tree/main/Tracce)
 
-Nella cartella “[**Tracce**](https://github.com/ilveron/intelligenza-artificiale/tree/main/Tracce)”, sono presenti, appunto, tutte le tracce d’esame (prese direttamente dal [sito del corso](https://sites.google.com/unical.it/inf-intelligenzaartificiale#h.w44yrmal09s)), e i miei relativi svolgimenti (***************sui quali **non garantisco** assolutamente la **correttezza***), i quali portano nel nome la stessa data indicata nel file della consegna.
+Nella cartella “[**Tracce**](https://github.com/ilveron/intelligenza-artificiale/tree/main/Tracce)”, sono presenti, appunto, tutte le tracce d’esame (prese direttamente dal [sito del corso](https://sites.google.com/unical.it/inf-intelligenzaartificiale#h.w44yrmal09s)), e i miei relativi svolgimenti (*sui quali **non garantisco** assolutamente la **correttezza***), e che riportano nel nome la stessa data indicata nel file della consegna.
