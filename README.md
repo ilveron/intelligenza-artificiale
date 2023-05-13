@@ -16,6 +16,10 @@ Nella cartella “[**Esempi**](https://github.com/ilveron/intelligenza-artificia
 
 ### [Esercizi](https://github.com/ilveron/intelligenza-artificiale/tree/main/Esercizi)
 
-Nella cartella “[**Esercizi**](https://github.com/ilveron/intelligenza-artificiale/tree/main/Esercizi)”, invece, trovate tutti gli svolgimenti (*debitamente commentati*), degli esercizi svolti in aula o assegnati per casa.
+Nella cartella “[**Esercizi**](https://github.com/ilveron/intelligenza-artificiale/tree/main/Esercizi)”, trovate tutti gli svolgimenti (*debitamente commentati*), degli esercizi svolti in aula o assegnati per casa.
 
 Trovate, inoltre, anche i risultati dell’esecuzione di quasi tutti i programmi “.dlv”, sotto forma di file “result-<nome_esercizio>.txt”
+
+### [Tracce](https://github.com/ilveron/intelligenza-artificiale/tree/main/Tracce)
+
+Nella cartella “[**Tracce**](https://github.com/ilveron/intelligenza-artificiale/tree/main/Tracce)”, sono presenti, appunto, tutte le tracce d’esame (prese direttamente dal [sito del corso](https://sites.google.com/unical.it/inf-intelligenzaartificiale#h.w44yrmal09s)), e i miei relativi svolgimenti (***************sui quali **non garantisco** assolutamente la **correttezza***), i quali portano nel nome la stessa data indicata nel file della consegna.
