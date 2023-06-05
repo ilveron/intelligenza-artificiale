@@ -1,0 +1,56 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Battaglia navale - semplificato %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Queste navi sono su un campo di battaglia che puo' essere visto 
+% come una matrice con righe e colonne. Ciascuna nave e' "composta" da
+% tre "pezzi", e pertanto occupa 3 posizioni sul campo di battaglia; si 
+% sa che sono navi "lunghe", quindi non possono essere ad "L", ma solo
+% in orrizzontale o in verticale. Si devono individuare le posizioni 
+% di tutte le navi, sapendo che in input si hanno fatti del tipo
+% 
+%   rowsum(R,Su)
+% 
+% e
+% 
+%   colsum(R,Su)
+% 
+% che indicano quante celle occupate ci sono sul campo di battaglia per 
+% ciascuna riga e colonna, rispettivamente (una sorta di tomografia
+% bidimensionale). 
+
+% Abbiamo cinque navi, ciascuna identificata con un numero.
+ship(1). ship(2). ship(3). ship(4). ship(5).
+
+cell(1..6,1..6).                % Matrice 6x6
+
+
+% Non credo che calcolerò qualche caso con cui far combaciare rowsum e colsum, tipo questo sicuro è inconsistente ;3;
+%rowsum(1,5).
+%rowsum(2,1).
+%rowsum(3,2).
+%rowsum(4,5).
+%rowsum(5,0).
+%rowsum(6,1).
+
+
+% Guess
+contains(R,C,0) | contains(R,C,1) | contains(R,C,2) | contains(R,C,3) | contains(R,C,4) | contains(R,C,5) :- cell(R,C). 
+
+
+% Check
+
+%% Non è possibile che una stessa nave si trovi su più righe e su più colonne contemporeaneamente (in pratica non è orizzontale/verticale)
+:- contains(R1,C1,S), contains(R2,C2,S), ship(S), R1<>R2, C1<>C2.
+
+%% Non è possibile che ci siano navi di dimensione diversa da 3
+:- #count{R,C : contains(R,C,S)}<>3, ship(S).
+
+%% Non è possibile che i pezzi della nave non siano contigui
+%%% Controllo il vicinato di Von Neumann (Funziona solo perchè le navi sono da 3, da 4 in su sarebbe necessaria la raggiungibilità)
+:- contains(R1,C1,S), not contains(R2,C2,S), not contains(R3,C3,S), not contains(R4,C4,S), not contains(R5,C5,S), R2=R1-1, C2=C1, R3=R1+1, C3=C1, R4=R1, C4=C1-1, R5=R1, C5=C1+1.
+
+
+%% Non è possibile che i vari rowsum e colsum non siano soddisfatti
+:- #count{C : contains(R,C,X), ship(X)}<>S, rowsum(R,S). 
+:- #count{R : contains(R,C,X), ship(X)}<>S, colsum(C,S). 

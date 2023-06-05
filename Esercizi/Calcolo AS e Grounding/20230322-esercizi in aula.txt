@@ -1,0 +1,119 @@
+a :- b,c.
+b | d :- not c, a.
+
+AS: { }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+a :- b,c.
+b | d :- not c, a.
+
+:- not d.
+
+% il vuoto non va bene perchè non rispetta il constraint quindi
+% il programma è INCONSISTENTE
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+a :- b, c.
+b | d :- not c, a.
+
+:- d.
+
+AS: { }
+
+% In questo caso il vincolo de
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+a | b | c :- not d.
+d | e.
+d :- a, b.
+
+:- a.
+:- not b, c.
+
+I:  {d}         % Modello   -   Ed è anche AS
+    {e, a}      % Modello   -   Ma non è AS, per il constraint ":- a."
+    {e, b}      % Modello   -   Ed è anche AS
+    {e, c}      % Modello   -   Ma non è AS, per il constraint ":- not b, c."
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+s(X) | t(X) :- r(X,Y).
+
+r(4,7). 
+r(2,1).
+r(6,8).
+
+% istanziazione
+s(4) | t(4) :- r(4,7).          % Potrei togliere r(4,7) dal corpo, perchè lo sappiamo essere vero (dai fatti)
+s(2) | t(2) :- r(2,1).          % idem
+s(6) | t(6) :- r(6,8).          % idem
+r(4,7). 
+r(2,1).
+r(6,8).
+
+% post-riduzione
+
+s(4) | t(4).
+s(2) | t(2).
+s(6) | t(6).
+r(4,7). 
+r(2,1).
+r(6,8).
+
+AS: {r(4,7), r(2,1), r(6,8), s(4), s(2), s(6)}          % e qualsiasi altra combinazione delle prime 3 regole
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+p(Y) | q(Y) :- g(Y,1).
+
+g(1,2).
+g(3,1).
+g(3,4).
+g(4,1).
+
+% istanziazione
+p(3) | q(3) :- g(3,1).
+p(4) | q(4) :- g(4,1).
+
+AS: {
+    {EDB + p(3), p(4)}, 
+    {EDB + p(3), q(4)},
+    {EDB + q(3), p(4)},
+    {EDB + q(3), q(4)}
+}
+
+
+%%% regole semplificazione
+
+% se P è un fatto che appare POSITIVAMENTE nel corpo, oppure se P NON è un fatto ed appare NEGATIVAMENTE nel corpo, lo si rimuove dalla regola
+% se P è un fatto che appare NEGATIVAMENTE nel corpo, rimuovo TUTTA la regola
+% se P è un fatto che appare in testa, rimuovo TUTTA la regola
+
+%% Esempio
+p(X) :- c(X), not q(X).
+a(X) :- p(X).
+
+c(1). c(2).
+q(1).
+
+% istanziazione
+
+p(1) :- c(1), not q(1). % <- Questa regola si rimuove per i motivi scritti a riga 91
+p(2) :- c(2), not q(2). % <- In questa regola rimuoviamo "c(2)", perchè è nei fatti, e "not q(2)", perchè NON è un fatto quindi è sempre vero
+a(1) :- p(1).           % <- Se sono stato intelligente, ed ho semplificato prima, non la genero proprio
+a(2) :- p(2).
+
+c(1). c(2).
+q(1).
+
+
+% istanziazione semplificata
+
+p(2).
+a(2) :- p(2).
+
+c(1). c(2).
+q(1).

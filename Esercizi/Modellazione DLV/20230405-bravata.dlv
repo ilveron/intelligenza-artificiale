@@ -1,0 +1,85 @@
+% == == == == == == == == == == == == == == == == == == == == == == == == == == == 
+% Giuseppe e 3 suoi amici si ritengono da sempre fedeli servitori della patria, e infatti da giovani sono entrati 
+% come volontari nell’esercito. Sfortunatamente non tutti hanno fatto carriera, quindi si trovano ad occupare 4
+% ruoli differenti, pur restando grandi amici. Amici a tal punto che si sono trovati a fare una grossa bravata
+% tutti assieme… scoperti, si trovano ora ad essere giudicati di fronte alla corte marziale. In aula, al banco
+% degli imputati, sono stati seduti su 4 sedie adiacenti. Al termine del processo, valutate le diverse
+% responsabilità, hanno ricevuto 4 condanne differenti, e in aggiunta sono stati riassegnati a 4 reggimenti
+% differenti, sì che ora non potranno più prestare servizio assieme. Sfruttando gli indizi seguenti, determinare
+% l’ordine in cui i 4 amici erano seduti al banco degli imputati al processo, il grado di ciascuno di loro, il
+% reggimento cui ciascuno è stato riassegnato, e la condanna che ciascuno di essi ha riportato.
+% 1.	Nicola non è un soldato semplice, non è stato riassegnato al primo reggimento e non è stato condannato a
+%     fare 500 giri nel cortile della caserma.
+% 2.	Il soldato semplice non è stato riassegnato al primo reggimento.
+% 3.	Daniele non è un sergente.
+% 4.	Colui che è stato riassegnato al secondo reggimento sedeva tra (ma non necessariamente accanto) colui che è
+%     stato poi condannato a servire 10 giorni in cucina e colui che è stato condannato a pagare una forte multa.
+% 5.	Daniele sedeva accanto a colui che è stato condannato a 500 giri del cortile e a colui che è stato
+%     riassegnato al primo reggimento.
+% 6.	Il caporale sedeva a sinistra (prima) di Stefano che non sedeva accanto a colui che è stato condannato a
+%     servire 10 giorni in cucina.
+% 7.	Il sergente sedeva accanto al soldato semplice e al maresciallo.
+% 8.	Uno dei quattro è stato condannato agli arresti per 1 settimana e riassegnato al quarto reggimento.
+%
+% Dati
+% Persone:      Giuseppe, Nicola, Daniele, Stefano
+% Grado:        Soldato, Caporale, Sergente, Maresciallo
+% Reggimento:   Primo, Secondo, Terzo, Quarto
+% Condanna:     Giri, Cucina, Multa, Arresto
+
+persona(giuseppe).
+persona(nicola).
+persona(daniele).
+persona(stefano).
+
+grado(P,soldato) | grado(P,caporale) | grado(P,sergente) | grado(P,maresciallo) :- persona(P).
+reggimento(P,primo) | reggimento(P,secondo) | reggimento(P,terzo) | reggimento(P,quarto) :- persona(P).
+condanna(P,giri) | condanna(P,cucina) | condanna(P,multa) | condanna(P,arresto) :- persona(P).
+ordine(P,1) | ordine(P,2) | ordine(P,3) | ordine(P,4) :- persona(P).
+
+accusato(O,P,G,C,R) :- ordine(P,O), grado(P,G), condanna(P,C), reggimento(P,R).
+
+:- grado(P1,G), grado(P2,G), P1<>P2.
+:- reggimento(P1,R), reggimento(P2,R), P1<>P2.
+:- condanna(P1,C), condanna(P2,C), P1<>P2.
+:- ordine(P1,O), ordine(P2,O), P1<>P2. 
+
+% 1.	Nicola non è un soldato semplice, non è stato riassegnato al primo reggimento e non è stato condannato a
+%     fare 500 giri nel cortile della caserma.
+:- grado(nicola,soldato).
+:- reggimento(nicola,primo).
+:- condanna(nicola,giri).
+
+% 2.	Il soldato semplice non è stato riassegnato al primo reggimento.
+:- grado(P,soldato), reggimento(P,primo).
+
+% 3.    Daniele non è un sergente.
+:- grado(daniele,sergente).         
+
+% 4.	Colui che è stato riassegnato al secondo reggimento sedeva tra (ma non necessariamente accanto) colui che è
+%     stato poi condannato a servire 10 giorni in cucina e colui che è stato condannato a pagare una forte multa.
+:- reggimento(P,secondo), condanna(P,cucina).
+:- reggimento(P,secondo), condanna(P,multa).
+:- reggimento(P1,secondo), condanna(P2,cucina), condanna(P3,multa), ordine(P1,O1), ordine(P2,O2), ordine(P3,O3), O1>=O2, O1>O3. 
+:- reggimento(P1,secondo), condanna(P2,cucina), condanna(P3,multa), ordine(P1,O1), ordine(P2,O2), ordine(P3,O3), O1>=O3, O1>O2. 
+
+
+% 5.	Daniele sedeva accanto a colui che è stato condannato a 500 giri del cortile e a colui che è stato
+%     riassegnato al primo reggimento.
+:- ordine(daniele,O1), condanna(P2,giri), ordine(P2,O2), O1<>O2+1, O1<>O2-1.
+:- ordine(daniele,O1), reggimento(P3,primo), ordine(P3,O3), O1<>O3+1, O1<>O3-1.
+
+
+% 6.	Il caporale sedeva a sinistra (prima) di Stefano che non sedeva accanto a colui che è stato condannato a
+%     servire 10 giorni in cucina.
+:- grado(P1,caporale), ordine(P1,O1), ordine(stefano,O2), O1>=O2-1.
+:- ordine(stefano,O1), condanna(P2,cucina), ordine(P2,O2), O1=O2+1.
+:- ordine(stefano,O1), condanna(P2,cucina), ordine(P2,O2), O1=O2-1.
+:- condanna(stefano,cucina).
+
+% 7.	Il sergente sedeva accanto al soldato semplice e al maresciallo.
+:- grado(P1,sergente), ordine(P1,O1), grado(P2,soldato), ordine(P2,O2), O1<>O2+1, O1<>O2-1.
+:- grado(P1,sergente), ordine(P1,O1), grado(P3,maresciallo), ordine(P3,O3), O1<>O3+1, O1<>O3-1.
+
+% 8.	Uno dei quattro è stato condannato agli arresti per 1 settimana e riassegnato al quarto reggimento.
+:- condanna(P,arresto), not reggimento(P,quarto).

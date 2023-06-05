@@ -1,0 +1,59 @@
+--- Esercizio 1 ---        
+Primo step:     Espando S-14    Frontiera [A-14,B-16,C-19]
+Secondo step:   Espando A-14    Frontiera [E-15,B-16,C-19]
+Terzo step:     Espando E-15    Frontiera [B-16,F-18,C-19]
+Quarto step:    Espando B-16    Frontiera [D-16,E-18,F-18,C-19]
+Sesto step:     Espando D-16    Frontiera [F-17,E-18,F-18,C-19]
+Settimo step:   Espando F-17    F è il GOAL
+
+Quindi il cammino ottimo è: S -> A -> E -> B -> D -> F
+
+---------------------------------------------
+
+--- Esercizio 2 ---
+
+Visita depth-first: S -> A -> B -> D -> F -> G
+
+Visita breadth-first: S -> A -> B -> C -> D -> E -> F -> G
+
+Visita greedy: S-9 -> B-6 -> D-4 -> F-3 -> G-0
+
+Visita A*:
+    Primo step:         Espando S-9     Frontiera [A-9,B-11]
+    Secondo step        Espando A-9     Frontiera [B-9,D-9,C-11,B-11]
+    Terzo step:         Espando B-9     Frontiera [D,9,D-10,C-11,B-11,E-12]
+    Quarto step:        Espando D-9     Frontiera [D-10,C-11,B-11,E-12,F-15]
+    Quinto step:        Scarto  D-10    Frontiera [C-11,B-11,E-12,F-15]
+    Sesto step:         Espando C-11    Frontiera [B-11,E-12,F-12,F-15]
+    Settimo step:       Scarto  B-11    Frontiera [E-12,F-12,F-15]
+    Ottavo step:        Espando E-12    Frontiera [F-12,F-15,G-16]
+    Nono step:          Espando F-12    Frontiera [F-15,G-16,G-17]
+    Decimo step:        Scarto  F-15    Frontiera [G-16,G-17]
+    Undicesimo step:    Espando G-16    G è il GOAL
+    
+Quindi il cammino ottimo è: S -> A -> B -> D -> C -> E -> F -> G
+
+----------------------------------------------
+
+--- Esercizio 3 ---
+
+Definire stato iniziale     ->  Tutti i dischi sono infilati in ordine nella prima colonna
+Stato obiettivo             ->  Tutti i dischi devono essere infilati in ordine nell'ultima delle 3 colonne 
+Azioni                      
+Modello di transizione e costo (tutte hanno costo 1)
+
+Stati: 
+(Ogni riga indica un paletto, il più vicino all'inizio della riga è quello in fondo)
+{
+    321
+    X
+    X
+} (Stato iniziale)
+
+{
+    X
+    X
+    321
+} (Stato obiettivo)
+
+[Da continuare...]

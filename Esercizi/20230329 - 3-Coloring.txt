@@ -1,8 +1,0 @@
-% 3-Colorability
-
-color(r). color(g). color(b).
-node(1). node(2).
-edge(1,2).
-
-col(X,r) | col(X,g) | col(X,b) :- node(X).
-:- edge(X,Y), col(X,C), col(Y,C).

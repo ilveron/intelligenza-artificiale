@@ -1,0 +1,49 @@
+%%% Puzzle Studenti %%%
+
+student(1..10).
+
+friend(1,3).
+friend(2,3).
+friend(6,4).
+friend(9,5).
+friend(1,2).
+friend(5,7).
+friend(5,4).
+friend(8,7).
+friend(X,Y) :- friend(Y,X).
+
+room(a).
+room(b).
+room(c).
+room(d).
+
+adjacent(a,b).
+adjacent(b,c).
+adjacent(c,d).
+adjacent(X,Y) :- adjacent(Y,X).
+
+% Guess
+assign(S,a) | assign(S,b) | assign(S,c) | assign(S,d) :- student(S).
+
+% Check
+%% In una stanza possono stare almeno 2, ed più 3 persone
+:- room(R), not 2<=#count{S : assign(S,R)}<=3.
+
+%% Gli studenti 3 e 4 devono stare in stanze differenti
+:- assign(3,R), assign(4,R).
+
+%% Gli studenti 5 e 6 devono stare nella stessa stanza
+:- assign(5,R), not assign(6,R).
+
+%% La stanza c deve ospitare esattamente 2 studenti
+:- #count{S : assign(S,c)}<>2.
+
+%% Lo studente 9 deve stare in stanza con tutti i suoi amici
+:- friend(9,S), assign(9,R), not assign(S,R).
+
+% Optimize
+%% Preferibilmente gli amici devono stare nella stessa stanza
+:~ friend(X,Y), assign(X,R), not assign(Y,R). [1@2]
+
+%% Altrimenti metterli in stanze adiacenti
+:~ friend(X,Y), assign(X,R1), assign(Y,R2), not adjacent(R1,R2), R1<>R2. [1@1]

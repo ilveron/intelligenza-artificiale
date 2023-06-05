@@ -1,5 +1,0 @@
-DLV 2.1.1
-
-{finalHouse(1,kools,norwegian,yellow,fox,water), finalHouse(2,chesterfields,russian,blue,horse,tea), finalHouse(3,winston,englishman,red,snail,milk), finalHouse(4,luckystrike,spaniard,ivory,dog,orangejuice), finalHouse(5,parliaments,japanese,green,zebra,coffee)}
-
-./dlv2 20230330-zebra\ puzzle.dlv -n 0 --filter=finalHouse/6

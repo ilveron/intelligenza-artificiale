@@ -1,0 +1,79 @@
+% Esercizio 1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% zebra puzzle
+%
+% There are 5 houses each of a different colour: (RED, GREEN, 
+% IVORY, BLUE, YELLOW) and inhabited by a person of a particular 
+% nationality (Japanese, Englishman, Norwegian, Russian, Spaniard) 
+% with a particular pet (horse, snail, zebra, fox, dog), drink 
+% (water, coffee, tea, milk, orange juice) and brand of cigarettes 
+% (LuckyStrike, Winston, Chesterfields, Kools, Parliaments).
+% 
+% It is given that:
+% 
+% 1.	The Englishman lives in the RED house.
+% 2.	The Spaniard owns the dog.
+% 3.	The Norwegian lives in the first house on the left.
+% 4.	Kools are smoked in the YELLOW house.
+% 5.	The man who smokes Chesterfields lives in the house 
+%       next to the man with the fox.
+% 6.	The Norwegian lives next to the BLUE house.
+% 7.	The Winston smoker owns snails.
+% 8.	The LuckyStrike smoker drinks orange juice.
+% 9.	The Russian drinks tea.
+% 10.	The Japanese smokes Parliaments.
+% 11.	Kools are smoked in the house next to the house where 
+%       the horse is kept.
+% 12.	Coffee is drunk in the GREEN house.
+% 13.	The GREEN house is immediately to the right of the 
+%       IVORY house.
+% 14.	Milk is drunk in the middle house.
+% 
+% A zebra is found wandering in the streets and the animal 
+% shelter wants to find out who let the zebra out, that is, 
+% which house the zebra belongs to.
+ 
+% This famous problem has a unique solution, that follows:
+% 
+% Number 	cigarettes	country	colour	pet	drink
+% ==============================================================
+% 1	kools		    Norway	yellow	fox	    water
+% 2	chesterfields	Russia	blue	horse	tea
+% 3	winston		    England	red	    snails	milk
+% 4	luckyStrike	    Spain	ivory	dog	    orange juice
+% 5	parliaments  	Japan	green	zebra	coffee
+
+house(1). house(2). house(3). house(4). house(5).
+
+% Guess
+
+coloredHouse(H,red) | coloredHouse(H,green) | coloredHouse(H,ivory) | coloredHouse(H,blue) | coloredHouse(H,yellow) :- house(H).
+inhabitedHouse(H,japanese) | inhabitedHouse(H,englishman) | inhabitedHouse(H,norwegian) | inhabitedHouse(H,russian) | inhabitedHouse(H,spaniard) :- house(H).
+pet(H,horse) | pet(H,snail) | pet(H,zebra) | pet(H,fox) | pet(H,dog) :- house(H).
+drink(H,water) | drink(H,coffee) | drink(H,tea) | drink(H,milk) | drink(H,orangejuice) :- house(H).
+cigarette(H,luckystrike) | cigarette(H,winston) | cigarette(H,chesterfields) | cigarette(H,kools) | cigarette(H,parliaments) :- house(H).
+
+finalHouse(H,Cig,Ctry,Col,P,D) :- house(H), cigarette(H,Cig), inhabitedHouse(H,Ctry), coloredHouse(H,Col), pet(H,P), drink(H,D).
+
+% Check
+
+:- coloredHouse(H1,C), coloredHouse(H2,C), H1<>H2.                                  % Due case con lo stesso colore
+:- inhabitedHouse(H1,I), inhabitedHouse(H2,I), H1<>H2.                              % Due case con lo stesso abitante
+:- pet(H1,P), pet(H2,P), H1<>H2.                                                    % Due case con lo stesso animale domestico
+:- drink(H1,D), drink(H2,D), H1<>H2.                                                % Due case con la stessa bevanda
+:- cigarette(H1,C), cigarette(H2,C), H1<>H2.                                        % Due case con le stesse sigarette
+:- coloredHouse(H,red), not inhabitedHouse(H,englishman).                           % 1
+:- pet(H,dog), not inhabitedHouse(H,spaniard).                                      % 2
+:- not inhabitedHouse(1,norwegian).                                                 % 3
+:- coloredHouse(H,yellow), not cigarette(H,kools).                                  % 4
+:- cigarette(H1,chesterfields), pet(H2,fox), H1<>H2+1, H1<>H2-1.                    % 5
+:- inhabitedHouse(H1,norwegian), coloredHouse(H2,blue), H1<>H2+1, H1<>H2-1.         % 6
+:- cigarette(H,winston), not pet(H,snail).                                          % 7
+:- cigarette(H,luckystrike), not drink(H,orangejuice).                              % 8
+:- inhabitedHouse(H,russian), not drink(H,tea).                                     % 9
+:- inhabitedHouse(H,japanese), not cigarette(H,parliaments).                        % 10
+:- cigarette(H1,kools), pet(H2,horse), H1<>H2+1, H1<>H2-1.                          % 11
+:- drink(H,coffee), not coloredHouse(H,green).                                      % 12
+:- coloredHouse(H1,green), coloredHouse(H2,ivory), H1<>H2+1.                        % 13
+:- not drink(3,milk).                                                               % 14
+

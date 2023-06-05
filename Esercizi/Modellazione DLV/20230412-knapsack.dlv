@@ -1,0 +1,18 @@
+%%%%%%%%%%%%%%%%
+%%% KNAPSACK %%%
+%%%%%%%%%%%%%%%%
+
+obj(1,50,10). 
+obj(2,30,20).
+obj(3,100,10).
+
+capacity(400).
+
+in(Id) | out(Id) :- obj(Id,_,_).
+
+
+% Vincoli forti
+:- #sum{W,Id : in(Id), obj(Id,_,W)}>C, capacity(C).
+
+% Vincoli deboli
+:~ out(Id), obj(Id,V,_). [V@1,Id]

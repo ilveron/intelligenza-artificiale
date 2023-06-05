@@ -1,5 +1,0 @@
-DLV 2.1.1
-
-{finale(dentista,lamezia,cugino,ricatto), finale(maggiordomo,napoli,sorella,vendetta), finale(artista,roma,amico,eredita), finale(idraulico,milano,partner,amore), finale(avvocato,falerna,madre,potere)}
-
-./dlv2 20230330-romanzi\ gialli.dlv -n 0 --filter=finale/4

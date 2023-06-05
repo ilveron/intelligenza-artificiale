@@ -1,5 +1,0 @@
-DLV 2.1.1
-
-{contiene(1,5,1), contiene(2,2,1), contiene(3,1,1), contiene(4,3,1), contiene(5,4,1), contiene(1,4,2), contiene(3,3,2), contiene(4,2,2), contiene(5,1,2), contiene(1,1,3), contiene(2,3,3), contiene(3,2,3), contiene(4,4,3), contiene(5,5,3), contiene(1,2,4), contiene(2,4,4), contiene(3,5,4), contiene(4,1,4), contiene(5,3,4), contiene(1,3,5), contiene(2,1,5), contiene(3,4,5), contiene(4,5,5), contiene(5,2,5), contiene(2,5,2)}
-
-./dlv2 20230330-casa-futoshiki.dlv -n 0 --filter=contiene/3

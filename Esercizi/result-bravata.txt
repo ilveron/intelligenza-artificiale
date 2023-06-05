@@ -1,5 +1,0 @@
-DLV 2.1.1
-
-{accusato(1,giuseppe,caporale,cucina,primo), accusato(4,nicola,maresciallo,multa,terzo), accusato(2,daniele,soldato,arresto,quarto), accusato(3,stefano,sergente,giri,secondo)}
-
-./dlv2 20230405-bravata.dlv -n 0 --filter=accusato/5

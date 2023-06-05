@@ -1,0 +1,97 @@
+% A Pasticciopoli è scoppiata una mania tra il pubblico televisivo, una vera e propria passione: tutti seguono il
+% fortunatissimo programma “Pasticciopoli’s got Talent”, e i nuovi talenti che scopre. Il problema è che,
+% dopo lo strepitoso successo di quest’anno, le domande di partecipazione per la prossima edizione sono davvero troppe,
+% e la produzione non ha idea di come venirne a capo. Hanno pertanto deciso di rivolgersi ad un esperto risolutore
+% di ogni tipo di problema, l’ormai famoso (nel suo piccolo…) Ciccio Pasticcio, nostro caro amico. In verità lui
+% vorrebbe declinare, ma come dire di no alla cara mogliettina, Renata Limbranata, che è una fan sfegatata dello show?
+% E così tocca (ancora una volta!) a noi aiutarlo, scrivendo un programma DLV che venga a capo dell’ardua questione.
+% Questa volta si tratta di scegliere, tra tutti i candidati, quali ammettere a far parte dei concorrenti della prossima edizione,
+% in accordo ad alcune specifiche richieste ed esigenze, elencate di seguito. 
+% •	È disponibile un elenco di sponsor della trasmissione; la produzione ha deciso di “legare” ogni concorrente ad uno sponsor,
+%   pertanto bisogna scegliere per ogni candidato se legarlo ad uno sponsor o meno. In caso positivo, il candidato
+%   è ammesso come concorrente alla prossima edizione. I candidati rimasti senza sponsor sono invece scartati.
+% •	La produzione intende legare a ciascuno sponsor ALMENO uno e AL MASSIMO due concorrenti. 
+% •	Il numero di donne e di uomini deve essere esattamente lo stesso.
+% •	Si è deciso di catalogare i possibili “talenti” in categorie (canto, danza, illusionismo, etc.):
+%   deve esserci almeno un concorrente per ciascuna categoria.
+% • Per ciascun concorrente, in base al suo profilo,  è possibile stimare in quali delle 20 regioni italiane risulterà 
+%   probabilmente simpatico, in quali probabilmente antipatico, e in quali, sostanzialmente, indifferente.
+%   Per ogni concorrente, si definiscono i casi in cui una regione lo trova simpatico, antipatico o indifferente come
+%   un “mi piace”, ”non mi piace”, ”chissenefrega”, rispettivamente. Si desidera massimizzare il numero totale
+%   di “mi piace”, e (ma meno prioritariamente) minimizzare il numero totale di “chissenefrega”.
+% •	Infine, la cosa più importante: si vuole garantire il maggior numero possibile di regioni italiane da cui proviene almeno un concorrente.
+
+% MODELLO DEI DATI IN INPUT:
+% sponsor(ID).				                ? Gli sponsor della trasmissione
+% aspirante(Nome,Sesso,Talento,Regione).	? Gli aspiranti concorrenti 
+% regione(R).				                ? Le regioni italiane
+% talento(T).				                ? Le categorie di talenti per cui si può concorrere
+%   	miPiace(N,R).				        ? Il concorrente “N” piace nella regione “R”
+%   	nonMiPiace(N,R). 			        ? Il concorrente “N” non piace nella regione “R”
+%   	chissenefrega(N,R). 		        ? Il concorrente “N” è indifferente nella regione “R”
+
+talento(canto).
+talento(programmazione).
+talento(barzellette).
+talento(cucina).
+
+aspirante(alessandro,m,programmazione,calabria).
+aspirante(mario,m,programmazione,puglia).
+aspirante(mattia,m,barzellette,calabria).
+aspirante(concetta,f,cucina,sicilia).
+aspirante(giuseppe,m,barzellette,sicilia).
+aspirante(rosa,f,canto,lazio).
+
+regione(valledaosta).
+regione(piemonte).
+regione(liguria).
+regione(lombardia).
+regione(trentino).
+regione(friuli).
+regione(veneto).
+regione(emilia).
+regione(toscana).
+regione(umbria).
+regione(marche).
+regione(lazio).
+regione(abruzzo).
+regione(sardegna).
+regione(molise).
+regione(campania).
+regione(basilicata).
+regione(puglia).
+regione(calabria).
+regione(sicilia).
+
+sponsor(1..4).
+
+% Guess
+haSponsor(N,S) | nonHaSponsor(N,S) :- aspirante(N,_,_,_), sponsor(S).
+miPiace(N,R) | nonMiPiace(N,R) | chissenefrega(N,R) :- aspirante(N,_,_,_), regione(R).
+concorrente(N,Se,T,R,Sp) :- aspirante(N,Se,T,R), haSponsor(N,Sp).
+
+
+% Check
+%% Non è possibile che una persona abbia più di uno sponsor
+:- haSponsor(N,S1), haSponsor(N,S2), S1<>S2.
+
+%% Non è possibile che uno sponsor non sia assegnato ad MIN 1, MAX 2 concorrenti
+:- #count{N : concorrente(N,_,_,_,S)}=X, sponsor(S), X<>1, X<>2.
+
+%% Non è possibile che il numero di donne sia diverso da quello degli uomini
+:- M=#count{X : concorrente(X,m,_,_,_)}, F=#count{X : concorrente(X,f,_,_,_)}, M<>F.
+
+%% Non è possibile che ci sia una categoria non presente fra i concorrenti
+talentoPresente(T) :- concorrente(_,_,T,_,_).
+:- talento(T), not talentoPresente(T).
+
+% Optimize (in ordine decrescente di importanza)
+%% Non vorrei che ci siano persone provenienti dalla stessa regione (più importante)
+:~ concorrente(N1,_,_,R,_), concorrente(N2,_,_,R,_), N1<>N2. [1@3, N1,N2]
+
+%% Voglio minimizzare il numero di nonMiPiace
+:~ concorrente(N,_,_,_,_), not miPiace(N,R), regione(R). [1@2, N,R]
+
+%% Voglio minimizzare il numero di chissenefrega (meno importante)
+:~ concorrente(N,_,_,_,_), chissenefrega(N,R), regione(R). [1@1, N,R]
+% Minimizzando il numero di nonMiPiace e chissenefrega, dovremmo così massimizzare il numero di miPiace

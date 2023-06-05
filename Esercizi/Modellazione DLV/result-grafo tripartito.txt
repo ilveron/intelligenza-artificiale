@@ -1,0 +1,8 @@
+DLV 2.1.1
+
+{keepNode(6,c), keepNode(8,c), keepNode(7,c), keepNode(1,a), keepNode(4,a), keepNode(2,a), keepNode(3,b), cardiB(1), keepArc(6,9,2), keepArc(6,7,6), keepArc(6,8,4), keepArc(1,4,3), keepArc(4,5,6), keepArc(4,3,5), keepArc(2,4,2), keepArc(2,3,3), keepArc(3,6,6), totalGainBtoC(6)}
+COST 1@2 5@1
+{keepNode(6,c), keepNode(8,c), keepNode(7,c), keepNode(1,a), keepNode(4,a), keepNode(2,a), keepNode(3,b), cardiB(1), keepArc(6,9,2), keepArc(6,7,6), keepArc(6,8,4), keepArc(1,4,3), keepArc(4,5,6), keepArc(4,3,5), keepArc(2,4,2), keepArc(2,3,3), keepArc(3,6,6), totalGainBtoC(6)}
+OPTIMUM
+
+./dlv2 20230413-grafo\ tripartito.dlv -n 0 --filter=keepNode/2,keepArc/3,totalGainBtoC/1,cardiB/1

@@ -1,0 +1,89 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Per ogni programma, stabilire se sia infinito o meno %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% es1
+a(Z) :- c(Z,X), b(Z).
+c(f(Y),f(Z)):- a(Y), a(Z).
+
+c(1,f(1)). b(f(1)). b(1).
+
+AS: {
+    c(1,f(1)), b(f(1)), b(1), 
+    a(1), c(f(1),f(1))
+    a(f(1)), c(f(f(1)),f(f(1))), c(f(f(1)),f(1)), c(f(1),c(f(f(1)))) 
+}
+% Non possiamo più generare nulla, quindi l'AS è finito
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% es2
+p(Y,X) :- q(X,Y).
+q(f(X), Y) :- r(Y), r(X).
+r(f(X)) :- p(X, f(Y)).
+
+r(1). r(2).
+
+AS: {
+    r(1), r(2),
+    q(f(1),1), q(f(1),2), q(f(2),1), q(f(2),2),
+    p(1,f(1)), p(2,f(1)), p(1,f(2)), p(2,f(2)),
+    r(f(1)), r(f(2)),
+    q(f(f(1)),1), q(f(f(1)),2), q(f(f(2)),1), q(f(f(2)),2), q(f(f(1)),f(1)), q(f(f(1)),f(2)), q(f(f(2)),f(1)), q(f(f(2)),f(2))
+    ... ... 
+}
+% L'AS è infinito, in quanto generando tutte le nuove p(Y,X), si verrebbero a generare nuovi r(f(x)), scatenando un ciclo infinito
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% es3
+q(f(1),1). p(f(1),1). r(1).
+
+p(Y,X) :- q(f(X),Y).
+q(f(X),Y) :- p(Y,X).
+r(f(X)) :- p(f(X),Y), r(X).
+
+AS: {
+   q(f(1),1), p(f(1),1), r(1),
+   p(1,f(1)), q(f(1),f(1)), r(f(1))
+}
+% p(Y,X) da qui in poi genererebbe di nuovo q(f(1),f(1)) e, non potendo aumentare la conoscenza per q, il programma si arresta, quindi l'AS è finito
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% es4
+
+q(f(1),1). p(f(1),1). r(1).
+
+p(Y,X) :- q(X,Y).
+q(f(X),X) :- r(X).
+r(f(X)) :- p(X,f(Y)), r(X).
+
+AS: {
+    q(f(1),1), p(f(1),1), r(1),
+    p(1,f(1)), 
+    r(f(1)),
+    q(f(f(1)),f(1)),
+    p(f(1),f(f(1))), p(1,f(f(1))), 
+    r(f(f(1)))
+    ... ...
+}
+% q(f(X),X) adesso genererebbe q(f(f(f(1))),f(f(1))), e conseguentemente p ed r genererebbero nuova conoscenza dando via ad un ciclo infinito, quindi l'AS è infinito
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+p(1,f(1)). r(1).
+
+p(Y,f(X)) :- q(X,f(Y)).
+q(X,f(X)) :- r(f(X)).
+r(f(X)) :- p(X,f(Y)), r(X).
+
+AS {
+    p(1,f(1)), r(1),
+    r(f(1)),
+    q(1,f(1))
+}
+
+% p(Y,f(X)), adesso, genererebbe di nuovo q(1,f(1)), quindi la conoscenza non può più aumentare, di conseguenza l'AS è finito
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

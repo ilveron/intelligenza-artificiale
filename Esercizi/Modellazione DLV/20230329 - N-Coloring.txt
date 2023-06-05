@@ -1,0 +1,15 @@
+% N-Colorability
+
+color(r). color(g). color(b).
+node(1). node(2).
+edge(1,2).
+
+col(X,C) | ncol(X,C) :- node(X), color(C).
+
+:- col(X,C1), col(X,C2), C1!=C2.
+
+colorato(X) :- col(X,_).
+
+:- node(X), not colorato(X).
+
+:- edge(X,Y), col(X,C), col(Y,C).

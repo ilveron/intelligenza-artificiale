@@ -1,0 +1,104 @@
+% Oltre a questi, completare quelli che sono in "20230327-esercizi in aula.txt"
+
+% Esercizio 1
+p(2,2) :- b(2), not a(2,2).
+t(3,3) :- p(2,2).
+t(2) :- p(2,2).
+
+:- a(2,2).
+
+AS: {}              % Insieme vuoto
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Esercizio 2
+
+andiamo(X) | a(X) :- comandare(_,X), X<4.
+comandare(U,Z) :- b(U), not trattore(U), b(Z).
+trattore(W) :- b(X), not comandare(W,X), W=X-1.
+
+b(3). b(4).
+
+% Istanziazione
+comandare(3,3) :- b(3), not trattore(3).
+comandare(3,4) :- b(3), not trattore(3), b(4).
+comandare(4,3) :- b(4), not trattore(4), b(3).
+comandare(4,4) :- b(4), not trattore(4).
+trattore(2) :- b(3), not comandare(2,3).
+trattore(3) :- b(4), not comandare(3,4).
+andiamo(3) | a(3) :- comandare(3,3).
+andiamo(3) | a(3) :- comandare(4,3).
+
+b(3). b(4).
+
+% Istanziazione semplificata
+comandare(3,3) :- not trattore(3).
+comandare(3,4) :- not trattore(3).
+comandare(4,3).                         % Essendo not trattore(4) SEMPRE vero, si semplifica
+comandare(4,4).                         % Vedi sopra
+trattore(2).                            % Essendo not comandare(2,3) SEMPRE vero, si semplifica
+trattore(3) :- not comandare(3,4).
+andiamo(3) | a(3) :- comandare(3,3).    % Si potrebbe semplificare questa regola, in questo caso, ma è meglio non prenderci l'abitudine
+andiamo(3) | a(3).
+
+b(3). b(4).
+
+% Provo a trovare AS
+I1: {b(3), b(4),    trattore(2),    comandare(3,3), comandare(3,4), comandare(4,3), comandare(4,4),     andiamo(3)}
+I2: {b(3), b(4),    trattore(2),    comandare(3,3), comandare(3,4), comandare(4,3), comandare(4,4), 	a(3)}
+I3: {b(3), b(4),    trattore(2), trattore(3),    comandare(4,3), comandare(4,4),    andiamo(3)}
+I4: {b(3), b(4),    trattore(2), trattore(3),    comandare(4,3), comandare(4,4),    a(3)}
+
+
+% Ridotti (se corpo falso -> rimuovo regola)
+
+%   I1: {b(3), b(4), trattore(2), comandare(3,3), comandare(3,4), comandare(4,3), comandare(4,4), andiamo(3)}
+
+comandare(3,3).
+comandare(3,4).
+comandare(4,3).
+comandare(4,4).
+trattore(2).
+andiamo(3) | a(3) :- comandare(3,3).
+andiamo(3) | a(3).                
+
+b(3). b(4).
+
+%%% I1 è un AS per il ridotto, ed è supportato. Quindi è un AS anche per il programma di partenza.
+
+
+% I2: {b(3), b(4), trattore(2), comandare(3,3), comandare(3,4), comandare(4,3), comandare(4,4), a(3)}
+
+comandare(3,3).
+comandare(3,4).
+comandare(4,3).
+comandare(4,4).
+trattore(2).
+andiamo(3) | a(3) :- comandare(3,3).
+andiamo(3) | a(3).                
+
+b(3). b(4).
+
+%%% I2 è un AS per il ridotto, ed è supportato. Quindi è un AS anche per il programma di partenza.
+
+
+% I3: {b(3), b(4), trattore(2), trattore(3), comandare(4,3), comandare(4,4), andiamo(3)}
+
+comandare(4,3).
+comandare(4,4).
+trattore(2).
+trattore(3).
+andiamo(3) | a(3).
+
+%%% I3 è un AS per il ridotto, ed è supportato. Quindi è un AS anche per il programma di partenza.
+
+
+% I4: {b(3), b(4), trattore(2), trattore(3), comandare(4,3), comandare(4,4), a(3)}
+
+comandare(4,3).
+comandare(4,4).
+trattore(2).
+trattore(3).
+andiamo(3) | a(3).
+
+%%% I4 è un AS per il ridotto, ed è supportato. Quindi è un AS anche per il programma di partenza.

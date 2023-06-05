@@ -1,0 +1,64 @@
+% == == == == == == == == == == == == == == == == == == == == == == == == == == == 
+% Un caro amico di Ciccio Pasticcio, Goffredo Diseredo, è in difficoltà. Una lontana zia di cui nessuno ricordava
+% l’esistenza ha lasciato in eredità a lui ed ai suoi 3 fratelli uno splendido terreno in campagna. All’iniziale
+% euforia è seguito però un po’ di sconforto: la vecchia zia, infatti, ha specificato nel testamento che il terreno
+% deve essere diviso in 4 parti, secondo alcune regole ben precise. Goffredo ed i suoi fratelli hanno provato a
+% risolvere il problema, ma non riescono in alcun modo a venirne a capo. Hanno pertanto deciso di rivolgersi al
+% nostro Ciccio, il quale, armato di un computer e della sua esperienza di modellazione ASP, è certo di venire a
+% capo della questione in un lampo. Si aiuti Ciccio scrivendo un programma ASP adatto allo scopo, tenendo conto
+% delle specifiche elencate di seguito.
+% •	Il campo ereditato da Goffredo e i suoi Fratelli è quadrato, diviso in N*N lotti che formano una griglia.
+% •	Il campo deve essere suddiviso in 4 sezioni, ciascuna contenente lo stesso numero di lotti.
+% •	Tutti i lotti che formano una sezione devono essere contigui; in pratica, deve sempre essere possibile
+%   passare da un lotto all’altro di una stessa sezione senza mai passare sul lotto di un’altra sezione.
+% •	Nel campo sono presenti 4 querce su 4 lotti diversi: è obbligatorio che ogni lotto con una quercia finisca a
+%   far parte di una sezione diversa: quindi ogni sezione avrà esattamente una quercia. La posizione delle quattro
+%   querce è data in input sotto forma di 4 fatti.
+% Esempio:  Si consideri, A PURO TITOLO DI ESEMPIO, il seguente campo, di 64 lotti, dove le querce sono indicate da 
+% un asterisco (‘*’): le doppie linee al centro definiscono una possibile suddivisione ammissibile.
+
+% |* |  |  |  ||  |  |  | *|
+% -------------------------
+% |  |  |  |  ||  |  |  |  |
+% -------------------------
+% |  |  |  |  ||  |  |  |  |
+% -------------------------
+% |  |  |  |  ||  |  |  |  |
+% =========================
+% |  |  |  |  ||  |  |  |  |
+% -------------------------
+% |  |  |  |  ||  |  |  |  |
+% -------------------------
+% |  |  |  |  ||  |  |  |  |
+% -------------------------
+% |* |  |  |  ||  |  |  | *|
+% -------------------------
+
+row(1..8).
+col(1..8).
+lot(R,C) :- row(R), col(C).
+oak(1,1).
+oak(1,8).
+oak(8,1).
+oak(8,8).
+
+section(1,R,C) | section(2,R,C) | section(3,R,C) | section(4,R,C) :- lot(R,C).
+
+%% Non è possibile che ci siano due querce nella stessa sezione
+:- oak(R1,C1), oak(R2,C2), section(S,R1,C1), section(S,R2,C2), R1<>R2.
+:- oak(R1,C1), oak(R2,C2), section(S,R1,C1), section(S,R2,C2), C1<>C2.
+
+%% Non è possibile che le sezioni abbiano un numero di lotti differente
+lotsPerSection(L) :- L=8*8/4.
+:- lotsPerSection(L), #count{X,Y : sezione(S,X,Y)}=K, sezione(S,_,_), K<>L.
+
+%% Contiguità
+adjacent(R1,C1,R2,C2) :- lot(R1,C1), lot(R2,C2), R1=R2, C2=C1+1.
+adjacent(R1,C1,R2,C2) :- lot(R1,C1), lot(R2,C2), R2=R1+1, C1=C2.
+adjacent(R1,C1,R2,C2) :- adjacent(R2,C2,R1,C1).
+
+reaches(R1,C1,R2,C2,S) :- section(S,R1,C1), section(S,R2,C2), adjacent(R1,C1,R2,C2).
+reaches(R1,C1,R3,C3,S) :- reaches(R1,C1,R2,C2,S), adjacent(R2,C2,R3,C3), section(S,R3,C3).
+
+:- section(S,R1,C1), section(S,R2,C2), not reaches(R1,C1,R2,C2,S), R1<>R2.
+:- section(S,R1,C1), section(S,R2,C2), not reaches(R1,C1,R2,C2,S), C1<>C2.

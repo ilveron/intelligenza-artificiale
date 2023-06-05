@@ -1,0 +1,5 @@
+DLV 2.1.1
+
+{numOfCellsWithOne(11), row(0), row(1), row(2), row(3), zerosInRow(1,0), zerosInRow(0,1), zerosInRow(0,2), zerosInRow(2,3), rowMostZeros(3), column(0), column(1), column(2), column(3), columnSum(0,4), columnSum(1,3), columnSum(2,3), columnSum(3,6), minColumnSum(1), minColumnSum(2), minVal(0), cellWithMinVal(3), matrix(0,0,1), matrix(0,1,0), matrix(0,2,1), matrix(0,3,1), matrix(1,0,1), matrix(1,1,1), matrix(1,2,1), matrix(1,3,1), matrix(2,0,2), matrix(2,1,1), matrix(2,2,1), matrix(2,3,3), matrix(3,0,0), matrix(3,1,1), matrix(3,2,0), matrix(3,3,1)}
+
+./dlv2 20230405-matrix.dlv

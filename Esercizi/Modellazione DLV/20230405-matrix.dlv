@@ -1,0 +1,59 @@
+% == == == == == == == == == == == == == == == == == == == == == == == == == == == 
+% Calcolare 
+% - la riga con il massimo numero di zeri.
+% - il numero di celle che contengono 1
+% - la somma degli elementi di ogni colonna
+% - la colonna la cui somma degli elementi è minima
+% - il numero di celle che contengono il valore minimo della matrice
+% matrix(row,column,val).
+
+matrix(0,0,1).
+matrix(0,1,0).
+matrix(0,2,1).
+matrix(0,3,1).
+matrix(1,0,1).
+matrix(1,1,1).
+matrix(1,2,1).
+matrix(1,3,1).
+matrix(2,0,2).
+matrix(2,1,1).
+matrix(2,2,1).
+matrix(2,3,3).
+matrix(3,0,0).
+matrix(3,1,1).
+matrix(3,2,0).
+matrix(3,3,1).
+
+% La riga con il massimo numero di zeri.
+%% Prendo tutte le righe (non strettamente necessario)
+row(R) :- matrix(R,_,_).
+
+%% Conto gli zeri per ogni riga
+zerosInRow(Z,R) :- Z=#count{C : matrix(R,C,X), X=0}, row(R).
+
+%% Prendo la riga con il maggior numero di zeri
+rowMostZeros(R) :- Z=#max{X : zerosInRow(X,_)}, zerosInRow(Z,R).
+
+
+% Il numero di celle che contengono 1
+numOfCellsWithOne(N) :- N=#count{R,C : matrix(R,C,1)}.
+
+
+% La somma degli elementi di ogni colonna
+%% Prendo tutte le colonne (non strettamente necessario)
+column(C) :- matrix(_,C,_).
+
+%% Calcolo la somma di ogni colonna
+columnSum(C,S) :- S=#sum{V,R : matrix(R,C,V)}, column(C).
+
+
+% La colonna la cui somma degli elementi è minima
+minColumnSum(C) :- M=#min{S : columnSum(_,S)}, columnSum(C,M).
+
+
+% Il numero di celle che contengono il valore minimo della matrice
+%% Trovo il valore minimo della matrice
+minVal(V) :- V=#min{X : matrix(_,_,X)}.
+
+%% Conto quante celle contengono il valore appena ricavato
+cellWithMinVal(N) :- N=#count{R,C : matrix(R,C,V)}, minVal(V).
