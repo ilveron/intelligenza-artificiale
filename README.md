@@ -16,10 +16,10 @@ Nella cartella “[**Esempi**](https://github.com/ilveron/intelligenza-artificia
 
 ### [Esercizi](https://github.com/ilveron/intelligenza-artificiale/tree/main/Esercizi)
 
-Nella cartella “[**Esercizi**](https://github.com/ilveron/intelligenza-artificiale/tree/main/Esercizi)”, trovate tutti gli svolgimenti (*debitamente commentati*), degli esercizi svolti in aula o assegnati per casa.
+Nella cartella “[**Esercizi**](https://github.com/ilveron/intelligenza-artificiale/tree/main/Esercizi)”, trovate tutti gli svolgimenti (*debitamente commentati*), degli esercizi svolti in aula o assegnati per casa, divisi per argomento nelle relative cartelle.
 
 Trovate, inoltre, anche i risultati dell’esecuzione di quasi tutti i programmi “.dlv”, sotto forma di file “result-<nome_esercizio>.txt”
 
-### [Tracce](https://github.com/ilveron/intelligenza-artificiale/tree/main/Tracce)
+### [Esami](https://github.com/ilveron/intelligenza-artificiale/tree/main/Esami)
 
-Nella cartella “[**Tracce**](https://github.com/ilveron/intelligenza-artificiale/tree/main/Tracce)”, sono presenti, appunto, tutte le tracce d’esame (prese direttamente dal [sito del corso](https://sites.google.com/unical.it/inf-intelligenzaartificiale#h.w44yrmal09s)), e i miei relativi svolgimenti (*sui quali **non garantisco** assolutamente la **correttezza***), e che riportano nel nome la stessa data indicata nel file della consegna.
+Nella cartella “[Tracce](https://github.com/ilveron/intelligenza-artificiale/tree/main/Esami/Tracce)”, sono presenti, appunto, tutte le tracce d’esame (prese direttamente dal [sito del corso](https://sites.google.com/unical.it/inf-intelligenzaartificiale#h.w44yrmal09s)) e, nella cartella “[Svolgimenti](https://github.com/ilveron/intelligenza-artificiale/tree/main/Esami/Tracce)” (***************sui quali **non garantisco** assolutamente la **correttezza***), i miei svolgimenti delle suddette (i file riportano la data del relativo pdf).
