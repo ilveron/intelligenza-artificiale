@@ -4,7 +4,7 @@ In questo repository, potete trovare tutti gli esercizi e gli appunti che ho scr
 
 ## Premessa doverosa
 
-Ho deciso di rendere pubblico questo repository per far sì che gli altri studenti, che frequentano questo corso, possano confrontarsi e magari risolvere problemi con i loro svolgimenti.
+Ho deciso di rendere pubblico questo repository per far sì che gli altri studenti che frequentano questo corso, possano confrontarsi e (magari) risolvere problemi con i loro svolgimenti.
 
 Ripetete insieme a me: ************************************Copiare gli esercizi è inutile, e soprattutto dannoso.************************************
 
