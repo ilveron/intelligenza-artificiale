@@ -12,7 +12,7 @@ queen(R,C) | -queen(R,C) :- cell(R,C).
 %% Non è possibile che ci siano due regine sulla stessa riga
 :- queen(R,C1), queen(R,C2), C1<>C2.
 
-%% Non è possibile che ci siano due regine sulla stessa riga
+%% Non è possibile che ci siano due regine sulla stessa colonna
 :- queen(R1,C), queen(R2,C), R1<>R2.
 
 %% Non è possibile che, data una regina, ce ne sia un'altra sulle sue diagonali
